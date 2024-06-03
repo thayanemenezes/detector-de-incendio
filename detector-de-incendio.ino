@@ -5,14 +5,14 @@
 
 #define DHT_PIN 4
 #define DHT_TYPE DHT11
-#define BUZZER_PIN 2
-#define BUTTON_PIN 5
+#define BUZZER_PIN 19
+#define BUTTON_PIN 2
 #define LED_PIN 18
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
-const char* ssid = "NOME-REDE";
-const char* password = "SENHA";
+const char* ssid = "Ta ligado";
+const char* password = "depoiseufalo";
 
 const char* twilioAccountSid = "ACdd78039141002f6a66e643170dcfa726";
 const char* twilioAuthToken = "0396c46c84b0e51c4491b62a7aed95fd";
@@ -50,7 +50,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT); 
+  pinMode(BUTTON_PIN, INPUT_PULLUP); // Utilizando resistor pull-up interno
   pinMode(LED_PIN, OUTPUT);
 
   dht.begin();
@@ -75,16 +75,18 @@ void loop() {
   Serial.print(temperatureC);
   Serial.println(" *C");
 
-  if (temperatureC > 50.0 && !alarmTriggered) {  
+  if (temperatureC > 20.0 && !alarmTriggered) {  
     alarmTriggered = true;
     digitalWrite(LED_PIN, HIGH);  
     tone(BUZZER_PIN, 1000);       
     sendSMS("Alerta de Incêndio: Temperatura elevada detectada!");
   }
 
-  if (digitalRead(BUTTON_PIN) == LOW) {  
+  if (digitalRead(BUTTON_PIN) == LOW && !buttonPressed) {  
     buttonPressed = true;
-  } else if (buttonPressed) {
+  } 
+
+  if (digitalRead(BUTTON_PIN) == HIGH && buttonPressed) {
     buttonPressed = false;
     alarmTriggered = false;
     digitalWrite(LED_PIN, LOW);  
@@ -92,5 +94,5 @@ void loop() {
     Serial.println("Alarme desativado, voltando ao monitoramento normal.");
   }
 
-  delay(3600); 
+  delay(1000); // Ajustado para 1 segundo para permitir leituras mais frequentes
 }
