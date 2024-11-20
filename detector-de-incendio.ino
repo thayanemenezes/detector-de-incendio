@@ -11,8 +11,8 @@
 
 DHT dht(DHT_PIN, DHT_TYPE);
 
-const char* ssid = "Ta ligado";
-const char* password = "depoiseufalo";
+const char* ssid = "REDE";
+const char* password = "SENHA";
 
 const char* twilioAccountSid = "ACdd78039141002f6a66e643170dcfa726";
 const char* twilioAuthToken = "0396c46c84b0e51c4491b62a7aed95fd";
@@ -50,7 +50,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(BUZZER_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP); // Utilizando resistor pull-up interno
+  pinMode(BUTTON_PIN, INPUT_PULLUP); 
   pinMode(LED_PIN, OUTPUT);
 
   dht.begin();
@@ -94,5 +94,5 @@ void loop() {
     Serial.println("Alarme desativado, voltando ao monitoramento normal.");
   }
 
-  delay(1000); // Ajustado para 1 segundo para permitir leituras mais frequentes
+  delay(1000);
 }
