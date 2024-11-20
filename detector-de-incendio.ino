@@ -14,10 +14,10 @@ DHT dht(DHT_PIN, DHT_TYPE);
 const char* ssid = "REDE";
 const char* password = "SENHA";
 
-const char* twilioAccountSid = "ACdd78039141002f6a66e643170dcfa726";
-const char* twilioAuthToken = "0396c46c84b0e51c4491b62a7aed95fd";
-const char* twilioPhoneNumber = "+14238535114";
-const char* destinationPhoneNumber = "+5585989321462";
+const char* twilioAccountSid = "TWILIO-ACCOUNT-ID";
+const char* twilioAuthToken = "TWILIO-AUTH-TOKEN";
+const char* twilioPhoneNumber = "+YOUR-TWILIO-PHONE-NUMBER";
+const char* destinationPhoneNumber = "+YOUR-DESTINATION-NUMBER";
 
 bool alarmTriggered = false;
 bool buttonPressed = false;
